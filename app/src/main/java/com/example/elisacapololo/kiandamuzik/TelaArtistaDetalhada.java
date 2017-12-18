@@ -27,7 +27,7 @@ public class TelaArtistaDetalhada extends AppCompatActivity {
         Artista fs = new Artista( 1, "Força Suprema", "descripton",
                                   "HipHop",  R.drawable.header,  true );
         Track urna = new Track();
-        Album caveira = new Album( 1, "  Caveira", fs.getId(),  "2017", "500,00kz");
+        Album caveira = new Album( 1, "Caveira", fs.getId(),  "2017", "500,00kz");
         urna.setAlbum(caveira);
         urna.setArtist(fs);
         urna.setTrackCover(R.drawable.fs);
