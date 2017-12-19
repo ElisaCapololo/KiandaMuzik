@@ -80,7 +80,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="24dp"
         android:text="@string/topMusica"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/listaDeMusicaPopular"
         app:layout_constraintStart_toStartOf="@+id/guiaEsquerda"
         app:layout_constraintTop_toBottomOf="@+id/descrisaoArtista"
         app:layout_constraintVertical_bias="0.0" />
