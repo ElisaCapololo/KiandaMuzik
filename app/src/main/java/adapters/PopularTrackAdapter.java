@@ -50,6 +50,7 @@ public class PopularTrackAdapter extends RecyclerView.Adapter<PopularTrackAdapte
        ViewHolder holder = new ViewHolder(v);
        return holder;
     }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.mpopularArtistName.setText(popularTrack.getPopularTracks().get(position).getArtist().getName());
