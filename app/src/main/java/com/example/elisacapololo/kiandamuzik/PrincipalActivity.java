@@ -1,9 +1,12 @@
 package com.example.elisacapololo.kiandamuzik;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -40,5 +43,19 @@ public class PrincipalActivity extends AppCompatActivity {
         listaDeMusicaPopular.setLayoutManager(linearLayoutManager);
         PopularTrackAdapter adapter = new PopularTrackAdapter(this, pTrackList);
         listaDeMusicaPopular.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_acerca){
+            startActivity(new Intent(this, AboutActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
