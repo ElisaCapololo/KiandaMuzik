@@ -1,6 +1,7 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.elisacapololo.kiandamuzik.PrincipalActivity;
 import com.example.elisacapololo.kiandamuzik.R;
+import com.example.elisacapololo.kiandamuzik.TelaArtistaDetalhada;
 
 import models.PopularTrackList;
 
@@ -18,7 +21,7 @@ import models.PopularTrackList;
 
 public class PopularTrackAdapter extends RecyclerView.Adapter<PopularTrackAdapter.ViewHolder> {
 
-    private Context mContext;
+    private static Context mContext;
     private PopularTrackList popularTrack;
 
     public PopularTrackAdapter(Context mContext, PopularTrackList popularTrack) {
@@ -32,6 +35,7 @@ public class PopularTrackAdapter extends RecyclerView.Adapter<PopularTrackAdapte
         public TextView mpopularTrackName;
         public ImageView mpopularVerifiedBagde;
         public ImageView mpopularTrackDetails;
+        View.OnClickListener mListener;
         public ViewHolder (View itemView){
             super(itemView);
             //Criamos os itens do nosso list_item layout
@@ -40,6 +44,12 @@ public class PopularTrackAdapter extends RecyclerView.Adapter<PopularTrackAdapte
             mpopularTrackDetails = itemView.findViewById(R.id.trackDetails);
             mpopularTrackName = itemView.findViewById(R.id.trackName);
             mpopularVerifiedBagde = itemView.findViewById(R.id.verifiedAccount);
+            mListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext, PrincipalActivity.class));
+                }
+            };
         }
     }
     //Metódos obrigatorios quando usamos o RecyclerView
@@ -61,6 +71,12 @@ public class PopularTrackAdapter extends RecyclerView.Adapter<PopularTrackAdapte
         }else {
             //Não apresentamos o bagde pois o artista não foi verificado
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, TelaArtistaDetalhada.class));
+            }
+        });
 
     }
 
