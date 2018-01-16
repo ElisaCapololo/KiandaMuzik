@@ -2,6 +2,7 @@ package adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,10 +72,18 @@ public class PopularTrackAdapter extends RecyclerView.Adapter<PopularTrackAdapte
         }else {
             //Não apresentamos o bagde pois o artista não foi verificado
         }
+        Bundle musicData = new Bundle();
+        musicData.putString(PopularTracksConstants.ARTIST_TITLE, popularTrack.getPopularTracks().get(position).getArtist().getName());
+        musicData.putString(PopularTracksConstants.TRACK_TITLE, popularTrack.getPopularTracks().get(position).getaName());
+        musicData.putInt(PopularTracksConstants.TRACK_COVER, popularTrack.getPopularTracks().get(position).getTrackCover());
+        musicData.putString(PopularTracksConstants.ARTIST_DESCRIPTION, popularTrack.getPopularTracks().get(position).getArtist().getDescription());
+
+        final Intent intent = new Intent(mContext, TelaArtistaDetalhada.class);
+        intent.putExtras(musicData);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, TelaArtistaDetalhada.class));
+                mContext.startActivity(intent);
             }
         });
 
