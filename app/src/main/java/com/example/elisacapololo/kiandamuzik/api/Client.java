@@ -1,7 +1,5 @@
 package com.example.elisacapololo.kiandamuzik.api;
 
-import com.example.elisacapololo.kiandamuzik.api.models.Track;
-
 import java.util.List;
 
 import retrofit2.Call;

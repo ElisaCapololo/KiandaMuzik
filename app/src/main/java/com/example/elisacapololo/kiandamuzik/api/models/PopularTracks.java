@@ -4,7 +4,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Track{
+public class PopularTracks {
 
 	@SerializedName("trackCoverArt")
 	private String trackCoverArt;
@@ -64,7 +64,7 @@ public class Track{
 	@Override
  	public String toString(){
 		return 
-			"Track{" + 
+			"PopularTracks{" +
 			"trackCoverArt = '" + trackCoverArt + '\'' + 
 			",artist = '" + artist + '\'' + 
 			",trackUrl = '" + trackUrl + '\'' + 
