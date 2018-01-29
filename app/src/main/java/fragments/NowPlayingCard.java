@@ -19,7 +19,7 @@ import widgets.PlayPauseButton;
  * Created by Elisa Capololo on 15-01-2018.
  */
 
-public class NowPlayingCard extends Fragment{
+public class NowPlayingCard extends android.support.v4.app.Fragment{
    ImageView albumArt;
    ProgressBar progressBar;
    TextView mSongTitle;

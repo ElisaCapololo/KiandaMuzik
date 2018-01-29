@@ -16,7 +16,7 @@ import models.Artista;
 import models.PopularTrackList;
 import models.Track;
 
-public class PrincipalActivity extends AppCompatActivity {
+public class PrincipalActivity extends BaseActivity {
 
     RecyclerView listaDeMusicaPopular;
     @Override
@@ -26,7 +26,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
         listaDeMusicaPopular = findViewById(R.id.listaDeMusicaPopular);
         setTitle("Neru Americano");
-        Artista ps = new Artista(1, "Neru Americano", "description",
+        Artista ps = new Artista(1, "Neru Americano", "Cantor desde 2017, começou a carreira como animador de festas",
                                  "Kuduro", R.drawable.big_shaq_track, false);
         Track selfie = new Track();
         Album capaDura = new Album(1, "CapaDura", ps.getId(), "2017", "1.000kz");
@@ -43,6 +43,7 @@ public class PrincipalActivity extends AppCompatActivity {
         listaDeMusicaPopular.setLayoutManager(linearLayoutManager);
         PopularTrackAdapter adapter = new PopularTrackAdapter(this, pTrackList);
         listaDeMusicaPopular.setAdapter(adapter);
+        new initNowPlayControls().execute("");
     }
 
     @Override
