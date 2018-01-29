@@ -8,13 +8,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceGenerator {
-    private static String BASE_URL = "https://kianda-simple-tracks-api.herokuapp.com/popular";
+    private static String BASE_URL = "https://kianda-simple-tracks-api.herokuapp.com/";
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create());
     private static  final Retrofit retrofit = builder.build();
 
-    public <S> S createService(Class<S> sClass){
+    public static  <S> S createService(Class<S> sClass){
         return retrofit.create(sClass);
     }
 }

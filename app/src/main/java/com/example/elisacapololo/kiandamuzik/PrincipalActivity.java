@@ -5,45 +5,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.elisacapololo.kiandamuzik.api.Client;
+import com.example.elisacapololo.kiandamuzik.api.ServiceGenerator;
+import com.example.elisacapololo.kiandamuzik.api.models.PopularTracks;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import adapters.PopularTrackAdapter;
 import models.Album;
 import models.Artista;
 import models.PopularTrackList;
 import models.Track;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PrincipalActivity extends BaseActivity {
+    private static final String TAG = "PrincipalActivity";
 
     RecyclerView listaDeMusicaPopular;
+    List<PopularTracks> popularTracksList;
+    LinearLayoutManager linearLayoutManager;
+    boolean popularLoaded = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
         listaDeMusicaPopular = findViewById(R.id.listaDeMusicaPopular);
-        setTitle("Neru Americano");
-        Artista ps = new Artista(1, "Neru Americano", "Cantor desde 2017, começou a carreira como animador de festas",
-                                 "Kuduro", R.drawable.big_shaq_track, false);
-        Track selfie = new Track();
-        Album capaDura = new Album(1, "CapaDura", ps.getId(), "2017", "1.000kz");
-        selfie.setAlbum(capaDura);
-        selfie.setArtist(ps);
-        selfie.setTrackCover(R.drawable.fs);
-        selfie.setId(1);
-        selfie.setaName("CapaDura");
+        linearLayoutManager = new LinearLayoutManager(this);
+        getPopularTracks();
 
-        ArrayList<Track> tracksPopular = new ArrayList<>();
-        tracksPopular.add(selfie);
-        PopularTrackList pTrackList = new PopularTrackList(1, ps.getId(), tracksPopular);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        listaDeMusicaPopular.setLayoutManager(linearLayoutManager);
-        PopularTrackAdapter adapter = new PopularTrackAdapter(this, pTrackList);
-        listaDeMusicaPopular.setAdapter(adapter);
+
         new initNowPlayControls().execute("");
+    }
+
+    private void InitializeRecycleView() {
+
+        listaDeMusicaPopular.setLayoutManager(linearLayoutManager);
+        PopularTrackAdapter adapter = new PopularTrackAdapter(this, popularTracksList);
+        listaDeMusicaPopular.setAdapter(adapter);
     }
 
     @Override
@@ -59,4 +64,27 @@ public class PrincipalActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void getPopularTracks(){
+        Client.PopularTracks popularTracks = ServiceGenerator.createService(Client.PopularTracks.class);
+        popularTracks.getPopularTracks().enqueue(new Callback<List<PopularTracks>>() {
+            @Override
+            public void onResponse(Call<List<PopularTracks>> call, Response<List<PopularTracks>> response) {
+                if (response.code() == 200){
+                    popularTracksList = response.body();
+                    popularLoaded = true;
+                    Log.d(TAG, "onResponse: " +response.body().size());
+                    InitializeRecycleView();
+                }else {
+                    Log.e(TAG, "onResponse: code=> " +response.code() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PopularTracks>> call, Throwable t) {
+                Log.e(TAG, "onFailure: Ocorreu um erro!");
+            }
+        });
+    }
+
 }
