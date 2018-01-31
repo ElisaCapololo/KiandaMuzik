@@ -1,10 +1,13 @@
 package com.example.elisacapololo.kiandamuzik.api.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 
-public class PopularTracks {
+public class PopularTracks implements Parcelable {
 
 	@SerializedName("trackCoverArt")
 	private String trackCoverArt;
@@ -20,6 +23,25 @@ public class PopularTracks {
 
 	@SerializedName("views")
 	private int views;
+
+	protected PopularTracks(Parcel in) {
+		trackCoverArt = in.readString();
+		trackUrl = in.readString();
+		trackTitle = in.readString();
+		views = in.readInt();
+	}
+
+	public static final Creator<PopularTracks> CREATOR = new Creator<PopularTracks>() {
+		@Override
+		public PopularTracks createFromParcel(Parcel in) {
+			return new PopularTracks(in);
+		}
+
+		@Override
+		public PopularTracks[] newArray(int size) {
+			return new PopularTracks[size];
+		}
+	};
 
 	public void setTrackCoverArt(String trackCoverArt){
 		this.trackCoverArt = trackCoverArt;
@@ -72,4 +94,17 @@ public class PopularTracks {
 			",views = '" + views + '\'' + 
 			"}";
 		}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(trackCoverArt);
+		dest.writeString(trackUrl);
+		dest.writeString(trackTitle);
+		dest.writeInt(views);
+	}
 }

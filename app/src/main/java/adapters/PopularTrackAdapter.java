@@ -13,13 +13,11 @@ import android.widget.TextView;
 import com.example.elisacapololo.kiandamuzik.PrincipalActivity;
 import com.example.elisacapololo.kiandamuzik.R;
 import com.example.elisacapololo.kiandamuzik.TelaArtistaDetalhada;
-import com.example.elisacapololo.kiandamuzik.api.Client;
 import com.example.elisacapololo.kiandamuzik.api.models.PopularTracks;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import models.PopularTrackList;
 
 /**
  * Created by Elisa Capololo on 18-12-2017.
@@ -29,9 +27,9 @@ public class PopularTrackAdapter extends RecyclerView.Adapter<PopularTrackAdapte
 
     private static Context mContext;
     //private PopularTrackList popularTrack;
-    List<PopularTracks> popularTracksList;
+    ArrayList<PopularTracks> popularTracksList;
 
-    public PopularTrackAdapter(Context mContext, List<PopularTracks> popularTracksList) {
+    public PopularTrackAdapter(Context mContext, ArrayList<PopularTracks> popularTracksList) {
         this.mContext = mContext;
         //this.popularTrack = popularTrack;
         this.popularTracksList = popularTracksList;
