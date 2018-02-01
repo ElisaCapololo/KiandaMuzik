@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ServiceGenerator {
-    private  static  String TEST_URL = "http://192.168.0.110:3000/";
+    private  static  String TEST_URL = "http://192.168.0.104:3000/";
     private static String BASE_URL = "https://kianda-simple-tracks-api.herokuapp.com/";
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(TEST_URL)

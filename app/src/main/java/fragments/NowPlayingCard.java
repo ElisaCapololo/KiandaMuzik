@@ -1,6 +1,7 @@
 package fragments;
 
 import android.app.Fragment;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import widgets.PlayPauseButton;
@@ -30,18 +32,9 @@ public class NowPlayingCard extends android.support.v4.app.Fragment implements M
    TextView mSongTitle;
    TextView mArtistTitle;
    PlayPauseButton play;
-   Boolean isPlaying = false;
    ArrayList<PopularTracks> tracks;
    MediaPlayer mediaPlayer;
 
-
-
-   Runnable mProgressUpdate = new Runnable() {
-       @Override
-       public void run() {
-
-       }
-   };
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,20 +48,25 @@ public class NowPlayingCard extends android.support.v4.app.Fragment implements M
         tracks = getArguments().getParcelableArrayList("popular");
         Picasso.with(this.getContext()).load(tracks.get(0).getTrackCoverArt())
                     .resize(512,512).into(albumArt);
-        mSongTitle.setText(tracks.get(0).getArtist().get(0).getName());
-        mArtistTitle.setText(tracks.get(0).getTrackTitle());
+        mSongTitle.setText(tracks.get(0).getTrackTitle());
+        mArtistTitle.setText(tracks.get(0).getArtist().get(0).getName());
 
         mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(tracks.get(0).getTrackUrl());
+            mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
+        play.setPlayed(true);
         return v;
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-
         mediaPlayer.start();
-        play.setPlayed(true);
-        isPlaying = true;
     }
 }
